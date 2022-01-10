@@ -1,0 +1,173 @@
+/* Coolors Exported Palette - https://coolors.co/ee5622-f3b700-03cea4-293132-f4b942 */
+/*
+/* CSS HEX */
+/*--flame: #ee5622ff;
+--orange-yellow: #f3b700ff;
+--caribbean-green: #03cea4ff;
+--charleston-green: #293132ff;
+--maximum-yellow-red: #f4b942ff;
+
+/* CSS HSL */
+/*--flame: hsla(15, 86%, 53%, 1);
+--orange-yellow: hsla(45, 100%, 48%, 1);
+--caribbean-green: hsla(168, 97%, 41%, 1);
+--charleston-green: hsla(187, 10%, 18%, 1);
+--maximum-yellow-red: hsla(40, 89%, 61%, 1);
+
+
+/* SCSS HEX */
+/* SCSS HSL */
+/* SCSS RGB */
+/* SCSS Gradient */
+* {
+  padding: 0%;
+  margin: 0%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+}
+
+.header {
+  background-color: #ee5622;
+}
+
+.header .topbar {
+  text-align: center;
+  height: 90px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.header .topbar .logo {
+  padding: 10px;
+  padding-left: 20px;
+  padding-top: 20px;
+  width: 165px;
+  height: 40px;
+  float: left;
+  margin-right: 100px;
+  padding-right: 100px;
+}
+
+.header .topbar .welcome {
+  padding: 10px;
+  padding-right: 20px;
+  padding-top: 20px;
+  float: right;
+  -ms-flex-item-align: right;
+      -ms-grid-row-align: right;
+      align-self: right;
+  color: #f3b700;
+}
+
+.header .topbar .welcome .logoutText {
+  font-size: 15px;
+  float: right;
+  -ms-flex-item-align: right;
+      -ms-grid-row-align: right;
+      align-self: right;
+  color: white;
+  text-decoration: none;
+}
+
+.header .topbar .welcome .logoutText:hover {
+  text-decoration: underline;
+}
+
+.back {
+  padding-top: 10px;
+}
+
+.back a {
+  font-size: 15px;
+  padding-left: 20px;
+  text-decoration: none;
+  color: #ee5622;
+}
+
+.title {
+  padding-top: 10px;
+  padding-left: 20px;
+}
+
+.title p {
+  font-weight: bold;
+}
+
+table {
+  padding-top: 10px;
+  padding-left: 20px;
+  color: #293132;
+  background-color: white;
+  border-collapse: separte;
+  border-spacing: 0;
+  display: table;
+  overflow: auto;
+  width: 90%;
+  text-align: left;
+  font-size: 15px;
+}
+
+table thead th {
+  color: #293132;
+  font-size: 20px;
+  padding: 5px 10px;
+  vertical-align: bottom;
+  border-bottom: 1px solid gray;
+}
+
+table thead th:first-child {
+  border-top-left-radius: 5px;
+}
+
+table thead th:last-child {
+  border-top-right-radius: 5px;
+}
+
+table tbody td {
+  border-top: 0.5px solid gray;
+  padding: 5px 10px;
+  vertical-align: top;
+  font-size: 15px;
+}
+
+.content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: absolute;
+  opacity: 100%;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.content .user_button {
+  float: left;
+  padding: 20px;
+}
+
+.content .user_button .btn {
+  background-color: #f3b700;
+  font-weight: bold;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.content .user_button .btn:hover {
+  background-color: #9c7601;
+}
+/*# sourceMappingURL=view-reservations-styling.css.map */

@@ -1,0 +1,78 @@
+@import "../../css/palette.scss";
+@import "../../css/sizes.scss";
+
+* {
+    padding: 0%;
+    margin: 0%;
+    font-family: "Montserrat", sans-serif;
+    font-size: $mdm;
+}
+
+.header {
+    background-color: $flame;
+
+    .topbar {
+        text-align: center;
+        height: 90px;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        .logo {
+            padding: 10px;
+            padding-left: 20px;
+            padding-top: 20px;
+            width: 165px;
+            height: 40px;
+            float: left;
+            margin-right: 100px;
+            padding-right: 100px;
+        }
+
+        .welcome {
+            padding: 10px;
+            padding-right: 20px;
+            padding-top: 20px;
+            float: right;
+            align-self: right;
+            color: $orange-yellow;
+
+            .logoutText {
+                font-size: 15px;
+                float: right;
+                align-self: right;
+                color: white;
+                text-decoration: none;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+
+.back {
+    padding-top: 10px;
+    a {
+        font-size: 15px;
+        padding-left: 20px;
+        text-decoration: none;
+        color: $flame;
+    }
+}
+
+button {
+    padding: 10px;
+    font-size: $mdm;
+    color: white;
+    background: $flame;
+    border: none;
+    border-radius: 5px;
+
+    &:hover {
+        background: $flame-hover;
+        transition: 0.5s;
+        cursor: pointer;
+    }
+}

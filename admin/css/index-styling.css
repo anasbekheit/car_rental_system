@@ -1,0 +1,107 @@
+/* Coolors Exported Palette - https://coolors.co/ee5622-f3b700-03cea4-293132-f4b942 */
+/*
+/* CSS HEX */
+/*--flame: #ee5622ff;
+--orange-yellow: #f3b700ff;
+--caribbean-green: #03cea4ff;
+--charleston-green: #293132ff;
+--maximum-yellow-red: #f4b942ff;
+
+/* CSS HSL */
+/*--flame: hsla(15, 86%, 53%, 1);
+--orange-yellow: hsla(45, 100%, 48%, 1);
+--caribbean-green: hsla(168, 97%, 41%, 1);
+--charleston-green: hsla(187, 10%, 18%, 1);
+--maximum-yellow-red: hsla(40, 89%, 61%, 1);
+
+
+/* SCSS HEX */
+/* SCSS HSL */
+/* SCSS RGB */
+/* SCSS Gradient */
+* {
+  padding: 0%;
+  margin: 0%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 20px;
+}
+
+.header {
+  background-color: #ee5622;
+}
+
+.header .topbar {
+  text-align: center;
+  height: 90px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+
+.header .topbar .logo {
+  padding: 10px;
+  padding-left: 20px;
+  padding-top: 20px;
+  width: 165px;
+  height: 40px;
+  float: left;
+  margin-right: 100px;
+  padding-right: 100px;
+}
+
+.header .topbar .welcome {
+  padding: 10px;
+  padding-right: 20px;
+  padding-top: 20px;
+  float: right;
+  -ms-flex-item-align: right;
+      -ms-grid-row-align: right;
+      align-self: right;
+  color: #f3b700;
+}
+
+.header .topbar .welcome .logoutText {
+  font-size: 15px;
+  float: right;
+  -ms-flex-item-align: right;
+      -ms-grid-row-align: right;
+      align-self: right;
+  color: white;
+  text-decoration: none;
+}
+
+.header .topbar .welcome .logoutText:hover {
+  text-decoration: underline;
+}
+
+.back {
+  padding-top: 10px;
+}
+
+.back a {
+  font-size: 15px;
+  padding-left: 20px;
+  text-decoration: none;
+  color: #ee5622;
+}
+
+button {
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+  background: #ee5622;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #a33c19;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  cursor: pointer;
+}
+/*# sourceMappingURL=index-styling.css.map */

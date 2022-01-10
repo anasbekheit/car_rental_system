@@ -1,0 +1,53 @@
+CUSTOMER WEBSITE
+----------------
+>>>>>TODO:
+-ERROR messages**
+-ADD back button to all pages
+
+
+>>>>DONE:
+-fixed search logic problem
+-navigation between reservation, search and checkout
+-from and to input as date and set default values as today and tomorrow
+-price per day as number input
+
+**ERROR messages:
+	you are already logged in
+	you have to pick a car first
+	you have to confirm your reservation first
+	car is already reserved
+	fix pop ups of javascript
+	validate the entries in register
+
+---------------------------------------------------------------
+ADMIN DASHBOARD
+----------------
+>>>>>TODO:
+-Advanced search (for customer, reservation, car)
+-View reservations page logic
+-Reports page logic
+-navigation between pages
+-Error messages
+
+>>>>>DONE:
+-LOGIN and LOGOUT page logic
+-ADD/Edit car logic
+---------------------------------------------------------------
+GENERAL TASKS
+-------------
+>>>>TODO:
+-ERD
+-SCHEMA
+-COMMENTS in code
+-POPULATE the database
+-REPORT
+
+>>>>DONE:
+
+---------------------------------------------------------------
+EXTRA TASKS
+-----------
+-car image
+-discounts
+-customer change password and name
+-ajax

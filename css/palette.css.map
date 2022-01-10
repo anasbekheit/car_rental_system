@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,sFAAsF;AACtF;aACa;AACb;;;;;;aAMa;AACb;;;;;;;cAOc;AAWd,cAAc;AAOd,cAAc;AAOd,mBAAmB",
+    "sources": [
+        "palette.scss"
+    ],
+    "names": [],
+    "file": "palette.css"
+}
