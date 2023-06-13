@@ -81,11 +81,64 @@ button {
     padding-left: 20px;
     padding-top: 10px;
 
+    .textfields {
+        padding-bottom: 8px;
+    }
+
+    .textfields-error {
+        padding-bottom: 8px;
+        color: $flame;
+    }
+
     form {
+        .search {
+            .textfields {
+                padding-right: 10px;
+            }
+        }
+
         .user_button {
             padding: 10px;
             float: left;
-
         }
     }
 }
+
+
+table {
+    padding-top: 10px;
+    padding-left: 20px;
+    color: $charleston-green;
+    background-color: white;
+    border-collapse: separte;
+    border-spacing: 0;
+    display: table;
+    overflow: auto;
+    width: 90%;
+    text-align: left;
+    font-size: 15px;
+}
+
+table thead th {
+    color:$charleston-green;
+    font-size: $mdm;
+    padding: 5px 10px;
+    vertical-align: bottom;
+    border-bottom: 1px solid gray;
+}
+
+table thead th:first-child {
+    border-top-left-radius: 5px;
+}
+
+table thead th:last-child {
+    border-top-right-radius: 5px;
+}
+
+table tbody td {
+    border-top: 0.5px solid gray;
+    padding: 5px 10px;
+    vertical-align: top;
+    font-size: 15px;
+}
+

@@ -4,7 +4,7 @@
 //TODO: FIX NAMING CONVENTIONS
 //TODO: STYLING REMAINING
 
-require 'server.php';
+require_once 'server.php';
 // initializing variables
 $fname = "";
 $lname = "";

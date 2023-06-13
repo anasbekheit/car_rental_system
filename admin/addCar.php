@@ -1,5 +1,5 @@
 <?php
-require 'server.php';
+require_once 'server.php';
 
 if(!isset($_SESSION['admin_user'])){
     header('location: login.php');
@@ -66,9 +66,27 @@ if(isset($_POST['add_car_to_database']))
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <script type="text/javascript" src="script.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./css/addcar-styling.css">
 </head>
 <body>
+<div class="header">
+    <div class="topbar">
+        <a href="index.php"><img class="logo" src="../css/logo/colored/logo-white.svg"></a>
+        <!-- logged in user information -->
+        <?php  if (isset($_SESSION['admin_user'])) : ?>
+            <div class="welcome">
+                <h3><strong>Basha</strong></h3>
+                <h3 style="color:blue;"> <a class="logoutText" href="index.php?logout='1'" >Log out</a> </h3>
+            </div>
+        <?php endif ?>
+    </div>
+
+</div>
+
+<div class="back"><a href="index.php">< Back</a></div>
+
+<div class="content">
+
 <form name="addCar" action="addCar.php" method="post">
     <div class="textfields">
         <label>Car Plate id</label>
@@ -109,11 +127,17 @@ if(isset($_POST['add_car_to_database']))
         <button type="submit" class="btn" name="add_car_to_database">Add Car</button>
     </div>
 
-    <div class="textfields">
+    <div class="textfields-error">
         <label><?php include("errors.php");?></label>
     </div>
     <div class="textfields">
         <label><?php echo $msg?></label>
     </div>
 </form>
+
+        </div>
+
+        </body>
+
+        </html>
 

@@ -1,7 +1,7 @@
 <?php
 //TODO: FIX NAMING CONVENTIONS HTML
 //TODO: STYLING IN CSS
-require 'server.php';
+require_once 'server.php';
 
 if(!isset($_SESSION['admin_user'])){
     header('location: login.php');
@@ -36,25 +36,26 @@ if(isset($_POST['report5']))
 <html>
 <head>
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="..\css\homestyle.css">
+    <link rel="stylesheet" type="text/css" href=".\css\reports-styling.css">
 </head>
 <body>
-
+<body>
 <div class="header">
-    <h2>Home Page</h2>
-</div>
-<div class="topbar">
+    <div class="topbar">
+        <a href="index.php"><img class="logo" src="../css/logo/colored/logo-white.svg"></a>
+        <!-- logged in user information -->
+        <?php  if (isset($_SESSION['admin_user'])) : ?>
+            <div class="welcome">
+                <h3><strong>Basha</strong></h3>
+                <h3 style="color:blue;"> <a class="logoutText" href="index.php?logout='1'" >Log out</a> </h3>
+            </div>
+        <?php endif ?>
+    </div>
 
-    <!-- logged in user information -->
-    <?php  if (isset($_SESSION['admin_user'])) : ?>
-        <div class="welcome">
-            <h3>Welcome <strong>admin</strong></h3>
-        </div>
-        <div class="logout">
-            <h3> <a class="logoutText" href="index.php?logout='1'" style="color: red;">Log out</a> </h3>
-        </div>
-    <?php endif ?>
 </div>
+
+<div class="back"><a href="index.php">< Back</a></div>
+
 <div class="content">
     <div class="title">
         <h2>Reports</h2>

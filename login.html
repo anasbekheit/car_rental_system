@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="css/styling.css">
+    <script type="text/javascript" src="login.js"></script>
+</head>
+<body>
+<div class="main">
+    <div class="content">
+        <div class="header">
+            <img src="css/logo/colored/logo-white.svg">
+        </div>
+        <form id="loginForm" class="loginForm" name="loginForm" action="login.php" method="post">
+            <div class="textfields">
+                <label>Email</label>
+                    <input type="text" id="login_email" name="login_email" required>
+            </div>
+
+            <div class="textfields">
+                <label>Password</label>
+                    <input type="password" id="login_password" name="login_password" required>
+            </div>
+
+            <div class="errors">
+                <p id="error-message"></p>
+            </div>
+
+            <div class="textfields">
+                <div class="login_button"><button type="submit" class="btn" name="login_user">Login</button></div>
+            </div>
+
+            <div class="footer">
+                Not a member? <a href="register.php">Register</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

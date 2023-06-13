@@ -1,5 +1,5 @@
 
-CREATE DATABASE crs;
+CREATE DATABASE car_rental_system;
 
 CREATE TABLE CAR
 (
@@ -9,6 +9,7 @@ CREATE TABLE CAR
     model_year YEAR,
     car_model VARCHAR(255),
     car_manufacturer varchar(255),
+    car_image varchar(1024) DEFAULT 'https://wallpaperaccess.com/full/1285952.jpg',
     country VARCHAR(255),
     price_per_day DOUBLE(7,2),
     CONSTRAINT car_PK PRIMARY KEY (plate_id),
@@ -42,7 +43,20 @@ CREATE TABLE RESERVATION
     CONSTRAINT RESERVATION_FK2 FOREIGN KEY (customer_id) REFERENCES CUSTOMER(customer_id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-
+CREATE TABLE promo_code(
+    code CHAR(10) NOT NULL,
+    percentage INT NOT NULL,
+    exp_date DATE NOT NULL,
+    CONSTRAINT promo_code_PK PRIMARY KEY (code),
+    CONSTRAINT percentage_constraint CHECK (percentage between 0 AND 100)
+);
+CREATE TABLE promo_reservation(
+    code CHAR(10) NOT NULL,
+    reservation_id int,
+    CONSTRAINT  promo_reservation_pk PRIMARY KEY (code,reservation_id),
+    CONSTRAINT  promo_reservation_fk_1 FOREIGN KEY (code) references promo_code(code),
+    CONSTRAINT  promo_reservation_fk_2 FOREIGN KEY (reservation_id) references reservation(reservation_id)
+);
 CREATE TRIGGER tg_bi_reservation
     BEFORE INSERT ON reservation
     FOR EACH ROW
@@ -55,12 +69,14 @@ CREATE TRIGGER tg_bi_reservation
             );
 
 
-CREATE TRIGGER `tg_bi_reservation_overlap` BEFORE INSERT ON `reservation`
+DELIMITER //
+CREATE TRIGGER tg_bi_reservation_overlap BEFORE INSERT ON reservation
     FOR EACH ROW BEGIN
-    IF(EXISTS (SELECT * FROM reservation WHERE (plate_id = NEW.plate_id) AND ( (pickup_time BETWEEN NEW.pickup_time AND NEW.return_time) OR (return_time BETWEEN NEW.pickup_time AND NEW.return_time)) )
+    IF(EXISTS (SELECT * FROM reservation WHERE (plate_id = NEW.plate_id) AND ( (NEW.pickup_time BETWEEN pickup_time AND return_time) OR (NEW.return_time BETWEEN pickup_time AND return_time)) )
         )
     THEN SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'anyMessageToEndUser';
+        SET MESSAGE_TEXT = 'OVERLAPPING INSERT @ RESERVATIONS TABLE';
 
     END IF;
-END
+END //
+DELIMITER ;

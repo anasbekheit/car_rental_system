@@ -110,8 +110,18 @@ button:hover {
   padding-top: 10px;
 }
 
+.content .textfields {
+  padding-bottom: 8px;
+}
+
+.content .textfields-error {
+  padding-bottom: 8px;
+  color: #ee5622;
+  float: left;
+}
+
 .content form .user_button {
   padding: 10px;
   float: left;
 }
-/*# sourceMappingURL=index-styling.css.map */
+/*# sourceMappingURL=editcar-styling.css.map */

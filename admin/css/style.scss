@@ -81,11 +81,25 @@ button {
     padding-left: 20px;
     padding-top: 10px;
 
+    .textfields {
+        padding-bottom: 8px;
+    }
+
+    .textfields-error {
+        padding-bottom: 8px;
+        color: $flame;
+    }
+
     form {
+        .search {
+            .textfields {
+                padding-right: 10px;
+            }
+        }
+
         .user_button {
             padding: 10px;
             float: left;
-
         }
     }
 }

@@ -1,7 +1,7 @@
 <?php
 //TODO: FIX NAMING CONVENTIONS HTML
 //TODO: STYLING IN CSS
-require 'server.php';
+require_once 'server.php';
 
 if(!isset($_SESSION['admin_user'])){
     header('location: login.php');

@@ -1,6 +1,6 @@
 <?php
 //TODO FUNCTIONALITY OF PAYMENT ,ENTIRE FRONT END
-require 'server.php';
+require_once 'server.php';
 
 if(!isset($_SESSION['user'])){
     header('location: login.php');

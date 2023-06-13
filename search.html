@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="css/search-styling-trial.css">
+    <script type="text/javascript" src="search.js"></script>
+</head>
+
+<body>
+<!-- Header section -->
+<div class="header">
+    <div class="topbar">
+        <a href="index.php"><img class="logo" src="css/logo/colored/logo-white.svg"></a>
+        <div class="welcome">
+            <h3><strong><!-- Display user's first name here --></strong></h3>
+            <button class="logout_button" onclick="logout()">Log out</button>
+        </div>
+        <!-- Back button -->
+    </div>
+</div>
+<form class="search_form" name="searchForm" method="post" action="search.php">
+    <label for="car_manufacturer">Car Manufacturer:</label>
+    <input type="text" id="car_manufacturer" name="car_manufacturer">
+
+    <label for="car_model">Car Model:</label>
+    <input type="text" id="car_model" name="car_model">
+
+    <label for="price_per_day">Price per day:</label>
+    <input type="number" id="price_per_day" name="price_per_day">
+
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country">
+
+    <label for="color">Color:</label>
+    <input type="text" id="color" name="color">
+
+    <label for="from_date">From:</label>
+    <input type="date" id="from_date" name="from_date">
+
+    <label for="to_date">To:</label>
+    <input type="date" id="to_date" name="to_date">
+
+    <button type="submit" id="search_btn">Search</button>
+</form>
+</body>
+</html>

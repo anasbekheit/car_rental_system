@@ -1,5 +1,5 @@
 <?php
-require 'server.php';
+require_once 'server.php';
 
 if(!isset($_SESSION['admin_user'])){
     header('location: login.php');
@@ -34,9 +34,25 @@ if(isset($_GET['car_report']))
 
 <html>
 <head>
-
+    <link rel="stylesheet" type="text/css" href=".\css\style.css">
 </head>
 <body>
+    
+<div class="header">
+    <div class="topbar">
+        <a href="index.php"><img class="logo" src="../css/logo/colored/logo-white.svg"></a>
+        <!-- logged in user information -->
+        <?php if (isset($_SESSION['admin_user'])) : ?>
+            <div class="welcome">
+                <h3><strong>Basha</strong></h3>
+                <h3 style="color:blue;"><a class="logoutText" href="index.php?logout='1'">Log out</a></h3>
+            </div>
+        <?php endif ?>
+    </div>
+
+</div>
+
+<div class="back"><a href="index.php">< Back</a></div>
 <form name="form1" id="form1" action="carsReservationReport.php"  method="get">
 
     Search by: <select name="column" id="column">

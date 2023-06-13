@@ -1,5 +1,5 @@
 <?php
-require 'server.php';
+require_once 'server.php';
 
 $plate_id="";
 $car_manufacturer="";
@@ -33,17 +33,11 @@ if(isset($_POST['search_car']))
     $car_status = mysqli_real_escape_string($db, $_POST['car_status']);
 
     $query="SELECT plate_id,car_model,car_manufacturer,color,model_year,country,price_per_day,car_status FROM car WHERE 1 ";
-    $where="";
-    if (!empty($car_model)) { $where.="AND car_model = '$car_model' "; }
-    if (!empty($car_price)) { $where.="AND price_per_day <= '$car_price' "; }
-    if (!empty($car_manufacturer)) { $where.="AND car_manufacturer ='$car_manufacturer' "; }
-    if (!empty($car_country)) { $where.="AND country='$car_country' "; }
-    if (!empty($car_color)) { $where.="AND color= '$car_color' "; }
+    $where = getWhere($car_model, $car_price, $car_manufacturer, $car_country, $car_color);
     if (!empty($car_status)) { $where.="AND car_status= '$car_status' "; }
     if (!empty($plate_id)) { $where.="AND plate_id= '$plate_id' "; }
     if (!empty($model_year)) { $where.="AND model_year= '$model_year' "; }
     $query.=$where;
-    echo  $query;
     $results = mysqli_query($db, $query);
 
     if($results && $results->num_rows>0){
@@ -69,34 +63,26 @@ if(isset($_POST['button_edit'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search</title>
     <script type="text/javascript" src="script.js"></script>
-    <link rel="stylesheet" type="text/css" href="../css/search-styling.css">
+    <link rel="stylesheet" type="text/css" href="./css/searchcar-styling.css">
 </head>
 <body>
 <div class="header">
     <div class="topbar">
         <a href="index.php"><img class="logo" src="../css/logo/colored/logo-white.svg"></a>
         <!-- logged in user information -->
-        <?php if (isset($_SESSION['user'])) : ?>
+        <?php  if (isset($_SESSION['admin_user'])) : ?>
             <div class="welcome">
-                <h3><strong><?php echo $_SESSION['user']['fname']; ?></strong></h3>
-                <h3><a class="logoutText" href="index.php?logout='1'">Log out</a></h3>
-            </div>
-        <?php endif ?>
-        <!-- notification message -->
-        <?php if (isset($_SESSION['success'])) : ?>
-            <div class="error_success">
-                <h3>
-                    <?php
-                    echo $_SESSION['success'];
-                    unset($_SESSION['success']);
-                    ?>
-                </h3>
+                <h3><strong>Basha</strong></h3>
+                <h3 style="color:blue;"> <a class="logoutText" href="index.php?logout='1'" >Log out</a> </h3>
             </div>
         <?php endif ?>
     </div>
-</div>
 
+</div>
 <div class="back"><a href="index.php">< Back</a></div>
+
+<div class="content">
+    <div class="search">
 <form name="addCar" action="searchCar.php" method="post">
     <div class="textfields">
         <label>Car Plate id</label>
@@ -137,7 +123,9 @@ if(isset($_POST['button_edit'])){
         <button type="submit" class="btn" name="search_car">Search</button>
     </div>
 </form>
+        </div>
 
+<div class="results">
 <?php
 if (!empty($rows)) : ?>
 
@@ -194,6 +182,9 @@ if (!empty($rows)) : ?>
 <?php else :?>
     <p>No results</p>
 <?php  endif ?>
+</div>
+
+</div>
 
 </body>
 </html>

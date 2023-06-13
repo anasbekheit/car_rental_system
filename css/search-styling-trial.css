@@ -1,0 +1,116 @@
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #a33c19;
+}
+
+/* Header Styles */
+.header {
+  background-color: #a33c19;
+  padding: 10px;
+  text-align: center;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  height: 40px;
+}
+
+.welcome {
+  text-align: right;
+}
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f3b700;
+  color: #ffffff;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Add transition for smooth color change */
+}
+
+button:hover {
+  background-color: #ecc368; /* Lighter background color on hover */
+}
+
+
+
+/* Search Form Styles */
+.search_form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #a33c19;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+  background-color: #f7f7f7;
+  margin-bottom: 15px;
+}
+
+button#search_btn {
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+/* Search Results Styles */
+#search_results {
+  margin: 20px;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  color: #a33c19;
+}
+.card {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: white;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.card h1 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.card p.price {
+  font-weight: bold;
+}
+
+.card p.info {
+  margin-top: 10px;
+}

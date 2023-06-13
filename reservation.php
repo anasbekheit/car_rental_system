@@ -1,6 +1,6 @@
 <?php
 //TODO ENTIRE FRONTEND
-require 'server.php';
+require_once 'server.php';
 
 $results = array();
 

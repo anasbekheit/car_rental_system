@@ -1,21 +1,19 @@
 * {
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
 
   }
   body {
     font-size: 100%;
-    background: #F8F8FF;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: #F8F8FF no-repeat fixed;
     background-size: cover;
   }
   
   .header {
     width: 40%;
-    margin: 50px auto 0px;
+    margin: 50px auto 0;
     color: white;
     background: #5F9EA0;
     text-align: center;
@@ -33,8 +31,8 @@
   background-color: white;
   width: 30%;
   padding: 20px;
-  margin: 0px auto;
-  border-radius: 0px 0px 10px 10px;
+  margin: 0 auto;
+  border-radius: 0 0 10px 10px;
   }
 
   .content:hover{
@@ -46,7 +44,7 @@
     margin: 0 auto;
   }
   .textfields {
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0 10px 0;
     
   }
   .textfields label {
@@ -95,7 +93,7 @@
 
   .errors {
     width: 92%; 
-    margin: 0px auto; 
+    margin: 0 auto; 
     padding: 10px; 
     border-radius: 5px; 
     text-align: center;
@@ -120,12 +118,12 @@
     background-color: white;
     width: 30%;
     padding: 20px;
-    margin: 0px auto;
-    border-radius: 0px 0px 10px 10px;
+    margin: 0 auto;
+    border-radius: 0 0 10px 10px;
   }
   .headerRegister {
     width: 50%;
-    margin: 50px auto 0px;
+    margin: 50px auto 0;
     color: white;
     background: #5F9EA0;
     text-align: center;

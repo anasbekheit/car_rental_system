@@ -110,8 +110,58 @@ button:hover {
   padding-top: 10px;
 }
 
+.content .textfields {
+  padding-bottom: 8px;
+}
+
+.content .textfields-error {
+  padding-bottom: 8px;
+  color: #ee5622;
+}
+
+.content form .search .textfields {
+  padding-right: 10px;
+}
+
 .content form .user_button {
   padding: 10px;
   float: left;
 }
-/*# sourceMappingURL=index-styling.css.map */
+
+table {
+  padding-top: 10px;
+  padding-left: 20px;
+  color: #293132;
+  background-color: white;
+  border-collapse: separte;
+  border-spacing: 0;
+  display: table;
+  overflow: auto;
+  width: 90%;
+  text-align: left;
+  font-size: 15px;
+}
+
+table thead th {
+  color: #293132;
+  font-size: 20px;
+  padding: 5px 10px;
+  vertical-align: bottom;
+  border-bottom: 1px solid gray;
+}
+
+table thead th:first-child {
+  border-top-left-radius: 5px;
+}
+
+table thead th:last-child {
+  border-top-right-radius: 5px;
+}
+
+table tbody td {
+  border-top: 0.5px solid gray;
+  padding: 5px 10px;
+  vertical-align: top;
+  font-size: 15px;
+}
+/*# sourceMappingURL=reservations-report-styling.css.map */

@@ -1,4 +1,4 @@
-<?php require 'server.php';
+<?php require_once 'server.php';
 
 if (!isset($_SESSION['user'])) {
     header('location: login.php');
@@ -23,32 +23,28 @@ if(isset($_POST['pay_button'])){
     $pickup_time=$_SESSION['from_date'];
     $return_date=$_SESSION['to_date'];
 
-        $query = "
+    /*    $query = "
     INSERT INTO reservation (plate_id, customer_id, pickup_time, return_time) 
     SELECT '$plate_id','$customer_id','$pickup_time','$return_date'
     FROM dual
     WHERE NOT EXISTS (SELECT plate_id,customer_id,pickup_time,return_time FROM reservation
                         WHERE ( ('$pickup_time' BETWEEN pickup_time AND return_time) 
-                            OR ('$return_date' BETWEEN pickup_time AND return_time) )  AND plate_id='$plate_id'); ";
+                            OR ('$return_date' BETWEEN pickup_time AND return_time) )  AND plate_id='$plate_id'); ";*/
 
-
+    $query = "
+    INSERT INTO reservation (plate_id, customer_id, pickup_time, return_time) 
+    VALUES ('$plate_id','$customer_id','$pickup_time','$return_date')";
     $result = mysqli_query($db, $query);
-    $check_query="SELECT * FROM reservation
-            WHERE customer_id = '$customer_id' AND plate_id = '$plate_id' AND pickup_time = '$pickup_time' AND return_time ='$return_date'";
-    $result=mysqli_query($db,$check_query);
-     if($result->num_rows==1)
+
+     if($result)
      {
          echo "reservation made"."<br>";
-         echo $query."<br>";
-         echo $check_query;
 
          header('location: viewReservation.php');
      }
      else
      {
          echo "car is already reserved"."<br>";
-         echo $query."<br>";
-         echo $check_query;
         // header('location: viwReservation.php');
      }
 
