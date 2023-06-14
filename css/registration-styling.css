@@ -75,7 +75,7 @@ body {
   margin: 3px;
 }
 
-.textfields input {
+.input {
   height: 30px;
   width: 100%;
   padding: 5px 10px;
@@ -125,7 +125,7 @@ body {
   text-align: center;
 }
 
-.errors p {
+.error {
   color: red;
 }
 

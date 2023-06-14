@@ -1,141 +1,121 @@
-
 <?php
-
-//TODO: FIX NAMING CONVENTIONS
-//TODO: STYLING REMAINING
-
+/**
+ * @var mysqli $db
+ */
 require_once 'server.php';
-// initializing variables
-$fname = "";
-$lname = "";
-$email = "";
-$password_1 = "";
-$password_2 = "";
-$country = "";
-$credit_card = "";
-
-// REGISTER USER
-if (isset($_POST['reg_user'])) {
-    //ZERO ERROR START
+if (isset($_SESSION['user'])) {
+    header('location: index.php');
+    exit;
+}
+function checkFields($first_name, $last_name, $email, $password_1, $password_2, $country, $credit_card): array
+{
     $errors = array();
-    // receive all input values from the form
-    $fname = mysqli_real_escape_string($db, $_POST['fname']);
-    $lname = mysqli_real_escape_string($db, $_POST['lname']);
-    $email = mysqli_real_escape_string($db, $_POST['email']);
-    $password_1 = mysqli_real_escape_string($db, $_POST['password']);
-    $password_2 = mysqli_real_escape_string($db, $_POST['confirm_password']);
-    $country = mysqli_real_escape_string($db, $_POST['country']);
-    $credit_card = mysqli_real_escape_string($db, $_POST['credit_card']);
-    //CHECK THAT THE USER HAS ALL FIELDS ENTERED CORRECTLY
-    if (empty($fname)) {
-        array_push($errors, "First name is required");
+
+    // First name validation
+    if (empty($first_name)) {
+        $errors[] = array("message" => "First name is required", "inputId" => "fname");
+    } elseif (!preg_match('/^[A-Za-z]{1,16}$/', $first_name)) {
+        $errors[] = array("message" => "First name should contain only English characters and be up to 16 characters long", "inputId" => "fname");
     }
-    if (empty($lname)) {
-        array_push($errors, "Last name is required");
+
+    // Last name validation
+    if (empty($last_name)) {
+        $errors[] = array("message" => "Last name is required", "inputId" => "lname");
+    } elseif (!preg_match('/^[A-Za-z]{1,16}$/', $last_name)) {
+        $errors[] = array("message" => "Last name should contain only English characters and be up to 16 characters long", "inputId" => "lname");
     }
+
+    // Email validation
     if (empty($email)) {
-        array_push($errors, "Email is required");
+        $errors[] = array("message" => "Email is required", "inputId" => "email");
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = array("message" => "Invalid email format", "inputId" => "email");
     }
+
+    // Password validation
     if (empty($password_1)) {
-        array_push($errors, "Password is required");
+        $errors[] = array("message" => "Password is required", "inputId" => "password");
+    } elseif (strlen($password_1) < 8 || !preg_match('/^[A-Za-z0-9]+$/', $password_1)) {
+        $errors[] = array("message" => "Password should be at least 8 characters long and contain only alphanumeric characters", "inputId" => "password");
     }
+
+    // Password confirmation
     if ($password_1 != $password_2) {
-        array_push($errors, "Passwords don't match");
+        $errors[] = array("message" => "Passwords don't match", "inputId" => "confirm_password");
     }
+
+    // Country validation
+    $validCountries = array("USA", "Canada", "Egypt", "United Kingdom"); // Replace with your list of valid countries
     if (empty($country)) {
-        array_push($errors, "Country field is required");
+        $errors[] = array("message" => "Country field is required", "inputId" => "country");
+    } elseif (!in_array($country, $validCountries)) {
+        $errors[] = array("message" => "Invalid country", "inputId" => "country");
     }
+
+    // Credit card validation
     if (empty($credit_card)) {
-        array_push($errors, "Credit card is required");
+        $errors[] = array("message" => "Credit card is required", "inputId" => "credit_card");
+    } elseif (!validateCreditCard($credit_card)) { // Implement your credit card validation logic
+        $errors[] = array("message" => "Invalid credit card", "inputId" => "credit_card");
     }
 
-
-    // first check the database to make sure
-    // a user does not already exist with the same email
-    $user_check_query = "SELECT * FROM customer WHERE email='$email' ";
-    $result = mysqli_query($db, $user_check_query);
-    $user = mysqli_fetch_assoc($result);
-
-    if ($user) { // if user exists
-
-        array_push($errors, "email already exists");
-
+    if (alreadyExists($email)) { // if user exists
+        $errors[] = array("message" => "Email already exists", "inputId" => "email");
     }
 
-    // Finally, register user if there are no errors in the form
-    if (count($errors) == 0) {
-        $password = md5($password_1);//encrypt the password before saving in the database
+    return $errors;
+}
+function validateCreditCard($credit_card): bool
+{
+    // Remove any non-digit characters from the credit card number
+    $credit_card = preg_replace('/[^0-9]/', '', $credit_card);
 
-        $query = "INSERT INTO customer (fname,lname, email, customer_pass, country, credit_card) 
-  			  VALUES('$fname','$lname', '$email', '$password','$country','$credit_card')";
-        mysqli_query($db, $query);
-        $query = "SELECT * FROM customer WHERE email='$email' ";
-        $result = mysqli_query($db, $query);
-        $user = mysqli_fetch_assoc($result);
-        $_SESSION['user'] = $user;
-        $_SESSION['success'] = "You are now logged in";
-        header('location: index.php');
+    // Check the length of the credit card number
+    if (strlen($credit_card) < 13 || strlen($credit_card) > 16) {
+        return false;
     }
+
+    // Perform prefix-based validation for some commonly used card types
+    $prefixes = array(
+        "Visa" => "/^4/",
+        "Mastercard" => "/^5[1-5]/",
+        "American Express" => "/^3[47]/",
+        "Discover" => "/^6(?:011|5)/",
+    );
+
+    foreach ($prefixes as $cardType => $prefixPattern) {
+        if (preg_match($prefixPattern, $credit_card)) {
+            return true;
+        }
+    }
+
+    // If the credit card number doesn't match any known prefixes, it is invalid
+    return false;
 }
 
 
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <title>Register</title>
-    <script type="text/javascript" src="script.js"></script>
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // receive all input values from the form
+    $data = json_decode(file_get_contents("php://input"));
+    $fname = trim($data->fname);
+    $lname = trim($data->lname);
+    $email = trim($data->email);
+    $password_1 = $data->password;
+    $password_2 = $data->confirm_password;
+    $country = trim($data->country);
+    $credit_card = trim($data->credit_card);
 
-</head>
-<body>
+    // CHECK THAT THE USER HAS ALL FIELDS ENTERED CORRECTLY
+    $errors = checkFields($fname, $lname, $email, $password_1, $password_2, $country, $credit_card);
 
-<div class="main">
-    <div class="contentRegister">
-        <div class="headerRegister">
-            <h1>Register</h1>
-        </div>
-        <form name="registerForm" action="register.php" onsubmit="return validateRegisterForm()" method="post">
-            <?php include('errors.php'); ?>
-            <div class="textfields">
-                <label>First Name:</label>
-                <input type="text" name="fname">
-            </div>
-            <div class="textfields">
-                <label>Last Name</label>
-                <input type="text" name="lname">
-            </div>
-            <div class="textfields">
-                <label>Email</label>
-                <input type="text" name="email">
-            </div>
-            <div class="textfields">
-                <label>Password</label>
-                <input type="password" name="password">
-            </div>
-            <div class="textfields">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password">
-            </div>
-            <div class="textfields">
-                <label>Country</label>
-                <input type="text" name="country">
-            </div>
-            <div class="textfields">
-                <label>Credit Card</label>
-                <input type="text" name="credit_card">
-            </div>
-            <div class="textfields">
-                <button type="submit" class="btn" name="reg_user">Register</button>
-            </div>
-            <div class="footer">
-                Already a member? <a href="login.php">Log in</a>
-            </div>
-        </form>
-    </div>
-</div>
-</body>
-</html>
+    // Finally, register user if there are no errors in the form
+    if (empty($errors)) {
+        $user = registerUser($fname, $lname, $email, $password_1, $country, $credit_card);
+        $_SESSION['user'] = $user;
+        $_SESSION['success'] = "You are now registered and logged in";
+        echo json_encode($errors);
+        header('location: index.php');
+        exit;
+    }
+    echo json_encode($errors);
+}include 'register.html';

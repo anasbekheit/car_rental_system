@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/registration-styling.css">
+    <title>Register</title>
+    <script type="text/javascript" src="register.js"></script>
+</head>
+<body>
+<div class="main">
+    <div class="contentRegister">
+        <div class="headerRegister">
+            <h1>Register</h1>
+        </div>
+        <form id="registrationForm" action="register.php" method="post">
+            <div id="errorMessages"></div>
+            <div class="textfields">
+                <label for="fname">First Name:</label>
+                <input type="text" id="fname" name="fname" class="input" required>
+                <p id="fnameError" class="error"></p>
+            </div>
+            <div class="textfields">
+                <label for="lname">Last Name:</label>
+                <input type="text" id="lname" name="lname" class="input" required>
+                <p id="lnameError" class="error"></p>
+            </div>
+            <div class="textfields">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="input" required>
+                <p id="emailError" class="error"></p>
+            </div>
+            <div class="textfields">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" class="input" required>
+                <p id="passwordError" class="error"></p>
+            </div>
+            <div class="textfields">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="input" required>
+                <p id="confirmPasswordError" class="error"></p>
+            </div>
+            <div class="textfields">
+                <label for="country">Country:</label>
+                <select id="country" name="country" class="input" required>
+                    <option value="" disabled selected>Select Country</option>
+                    <!-- Add dropdown options dynamically using JavaScript as mentioned in a previous response -->
+                </select>
+                <p id="countryError" class="error"></p>
+            </div>
+            <div class="textfields">
+                <label for="credit_card">Credit Card:</label>
+                <input type="text" id="credit_card" name="credit_card" class="input" required>
+                <p id="creditCardError" class="error"></p>
+            </div>
+            <div class="textfields">
+                <button type="submit" class="btn" id="reg_user">Register</button>
+            </div>
+            <div class="footer">
+                Already a member? <a href="login.html">Log in</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
