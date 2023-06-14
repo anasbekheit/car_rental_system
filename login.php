@@ -23,17 +23,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     exit;
 }
-
-// Function to validate the user's credentials
-function validateCredentials($email, $password) {
-    global $db;
-    if (empty($email) || empty($password)) {
-        return false;
-    }
-    $password = md5($password);
-    $query = "SELECT customer_id, email, fname, lname, country, credit_card FROM customer WHERE email='$email' AND customer_pass='$password'";
-    $results = mysqli_query($db, $query);
-    $user = mysqli_fetch_assoc($results);
-
-    return mysqli_num_rows($results) == 1 ? $user: null;
-}
