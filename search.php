@@ -1,6 +1,6 @@
 <?php
 /**
- * @var object $db
+ * @var mysqli $db
  */
 require_once 'server.php';
 
@@ -11,9 +11,6 @@ if (isset($_GET['logout'])) {
     unset($_SESSION['user']);
     header("location: login.php");
 }
-
-$rows = array();
-
 
 /**
  * @param $car_model
@@ -44,7 +41,6 @@ function getWhere($car_model, $car_price, $car_manufacturer, $car_country, $car_
     return $where;
 }
 
-
 // receive all input values from the form
 $car_model = isset($_POST['car_model']) ? mysqli_real_escape_string($db, $_POST['car_model']) : "";
 $car_price = isset($_POST['car_price']) ? mysqli_real_escape_string($db, $_POST['car_price']) : "";
@@ -69,4 +65,4 @@ if ($results) {
 }
 // Return the data as JSON
 header('Content-Type: application/json');
-echo json_encode($rows);
+echo json_encode(isset($rows)? $rows : []);

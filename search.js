@@ -4,7 +4,7 @@ function logout() {
 document.addEventListener('DOMContentLoaded', function() {
     // Get the search form element
     const searchForm = document.querySelector('.search_form');
-    const searchButton = document.getElementById('search_btn');
+    document.getElementById('search_btn');
     // Add event listener for form submission
     searchForm.addEventListener('submit', function(event) {
         event.preventDefault(); // Prevent the default form submission
