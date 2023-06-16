@@ -95,6 +95,10 @@ if ($statement) {
     // Free the statement and close the connection
     mysqli_stmt_close($statement);
     mysqli_close($db);
+
+    // Set the from & to dates so you can charge the customer.
+    $_SESSION['from_date'] =$from_date;
+    $_SESSION['to_date'] = $to_date;
 }else{
     $error = mysqli_error($db);
     // Log or display the error message

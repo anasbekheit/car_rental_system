@@ -20,8 +20,8 @@
 /* SCSS RGB */
 /* SCSS Gradient */
 * {
-  padding: 0%;
-  margin: 0%;
+  padding: 0;
+  margin: 0;
   font-family: "Montserrat", sans-serif;
   font-size: 20px;
 }
@@ -59,8 +59,8 @@
   padding-top: 20px;
   float: right;
   -ms-flex-item-align: right;
-      -ms-grid-row-align: right;
-      align-self: right;
+      -ms-grid-row-align: end;
+      align-self: end;
   color: #f3b700;
 }
 
@@ -68,8 +68,8 @@
   font-size: 15px;
   float: right;
   -ms-flex-item-align: right;
-      -ms-grid-row-align: right;
-      align-self: right;
+      -ms-grid-row-align: end;
+      align-self: end;
   color: white;
   text-decoration: none;
 }
@@ -112,5 +112,11 @@ button:hover {
   -webkit-transition: 0.5s;
   transition: 0.5s;
   cursor: pointer;
+}
+img {
+  width: 20%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 /*# sourceMappingURL=reservation-styling.css.map */

@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.body.appendChild(searchResults);
 
                 if (data.length > 0) {
-                    data.forEach(result => createCarCard(searchResults, result));
+                    data.forEach(result => createCarCard(searchResults, result, fromDate, toDate));
                 } else {
                     // Display a message if no results found
                     searchResults.textContent = 'No results found.';
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-function createCarCard(searchResults, result) {
+function createCarCard(searchResults, result, fromDate, toDate) {
     // Create HTML elements for each result
     const div = document.createElement('div');
     const img = document.createElement('img');
@@ -128,4 +128,35 @@ function createCarCard(searchResults, result) {
     div.appendChild(price);
     div.appendChild(info);
     searchResults.appendChild(div);
+    button.addEventListener('click', function () {
+        setSessionVariable('car', result);
+        setSessionVariable('fromDate', fromDate);
+        setSessionVariable('toDate', toDate);
+        window.location.href = '../view/reservation.html';
+    })
+}
+// Create a function to set the session variable
+function setSessionVariable(variableName, variableValue) {
+    // Create a new FormData object
+    variableValue = JSON.stringify(variableValue);
+    sessionStorage.setItem(variableName, variableValue);
+    const formData = new FormData();
+    formData.append('variableName', variableName);
+    formData.append('variableValue', variableValue);
+
+    // Send an AJAX request to the PHP script
+    fetch('../set_session_variable.php', {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            if (response.ok) {
+                console.log('Session variable set successfully');
+            } else {
+                console.error('Failed to set session variable');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
