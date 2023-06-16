@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = validateCredentials($email, $password);
     if ($user !== null) {
         $_SESSION['user'] = $user;
-        $_SESSION['success'] = "You are now logged in";
         header("HTTP/1.1 200 OK");
     } else {
         header('Content-Type: application/json');

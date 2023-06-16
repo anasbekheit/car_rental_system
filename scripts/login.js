@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             login_password: password
         };
         // Send an AJAX request to the login.php file
-        fetch('login.php', {
+        fetch('../login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     // Redirect to the desired page after successful login
-                    window.location.href = "index.php";
+                    window.location.href = "index.html";
                 } else {
                     const error = document.getElementById('error-message');
                     error.innerText = "Incorrect username and/or password";

@@ -40,7 +40,7 @@ if(isset($_POST['pay_button'])){
      {
          echo "reservation made"."<br>";
 
-         header('location: viewReservation.php');
+         header('location: view-reservation.php');
      }
      else
      {

@@ -1,5 +1,8 @@
 <?php
-//TODO FUNCTIONALITY OF PAYMENT ,ENTIRE FRONT END
+/**
+ * @var mysqli $db
+ */
+
 require_once 'server.php';
 
 if(!isset($_SESSION['user'])){
@@ -27,7 +30,7 @@ if($results && $results->num_rows>0){
 ?>
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="css\view-reservations-styling.css">
+<link rel="stylesheet" type="text/css" href="css/view-reservations-styling.css">
      <title>Your Reservations </title>
     </head>
 <body>

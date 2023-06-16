@@ -2,20 +2,20 @@
 require_once 'server.php';
 
 if (!isset($_SESSION['user'])) {
-    header('location: login.html');
+    header('location: view/login.html');
     exit;
 }
 if (isset($_GET['logout'])) {
     unset($_SESSION['user']);
-    header("location: login.html");
+    header("location: view/login.html");
     exit;
 }
 if (isset($_POST['rent_car'])) {
-    header("location: search.html");
+    header("location: view/search.html");
     exit;
 }
 if (isset($_POST['view_reservations'])) {
-    header("location: viewReservation.php");
+    header("location: view-reservation.php");
     exit;
 }
-include 'index.html';
+echo json_encode($_SESSION['user'] ? $_SESSION['user']['fname'] : "");
