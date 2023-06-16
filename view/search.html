@@ -36,10 +36,10 @@
     <input type="text" id="color" name="color">
 
     <label for="from_date">From:</label>
-    <input type="date" id="from_date" name="from_date">
+    <input type="date" id="from_date" name="from_date" required min="1997-01-01" max="2030-12-31">
 
     <label for="to_date">To:</label>
-    <input type="date" id="to_date" name="to_date">
+    <input type="date" id="to_date" name="to_date" required min="1997-01-01" max="2030-12-31">
 
     <button type="submit" id="search_btn">Search</button>
 </form>
