@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log(data);
                 // Create a new search results section
                 const searchResults = document.createElement('div');
-                searchResults.classList.add('search_results');
+                searchResults.classList.add('card-container');
                 document.body.appendChild(searchResults);
 
                 if (data.length > 0) {
