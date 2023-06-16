@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
-    <link rel="stylesheet" type="text/css" href="css/search-styling-trial.css">
-    <script type="text/javascript" src="search.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/search-styling-trial.css">
+    <script type="text/javascript" src="../scripts/search.js"></script>
 </head>
 
 <body>
 <!-- Header section -->
 <div class="header">
     <div class="topbar">
-        <a href="index.php"><img class="logo" src="css/logo/colored/logo-white.svg"></a>
+        <a href="../index.php"><img class="logo" src="../css/logo/colored/logo-white.svg" alt="Rently's Logo"></a>
         <div class="welcome">
             <h3><strong><!-- Display user's first name here --></strong></h3>
             <button class="logout_button" onclick="logout()">Log out</button>
@@ -19,7 +19,7 @@
         <!-- Back button -->
     </div>
 </div>
-<form class="search_form" name="searchForm" method="post" action="search.php">
+<form class="search_form" name="searchForm" method="post" action="../search.php">
     <label for="car_manufacturer">Car Manufacturer:</label>
     <input type="text" id="car_manufacturer" name="car_manufacturer">
 

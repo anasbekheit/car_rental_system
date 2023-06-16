@@ -118,4 +118,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     echo json_encode($errors);
-}include 'register.html';
+}
+include 'register.html';

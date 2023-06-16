@@ -48,7 +48,7 @@ function validateRegisterForm() {
     }*/
 
     //making sure email has the right format
-    let format = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let format = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if(!format.test(String(email).toLowerCase()))
     {
         alert("You have entered an invalid email address");
@@ -67,13 +67,13 @@ function validateRegisterForm() {
 function validateLoginForm() {
     //making sure email field is not null
     let email = document.forms["loginForm"]["loginEmail"].value;
-    if (email == "") {
+    if (email === "") {
         alert("Email must be filled out");
         return false;
     }
     //making sure password field is not null
     let password = document.forms["loginForm"]["loginPassword"].value;
-    if (password == "") {
+    if (password === "") {
         alert("Password must be filled out");
         return false;
         

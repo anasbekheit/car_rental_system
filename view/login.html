@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="css/styling.css">
-    <script type="text/javascript" src="login.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/styling.css">
+    <script type="text/javascript" src="../scripts/login.js"></script>
 </head>
 <body>
 <div class="main">
     <div class="content">
         <div class="header">
-            <img src="css/logo/colored/logo-white.svg">
+            <img src="../css/logo/colored/logo-white.svg" alt="Rently's Logo">
         </div>
-        <form id="loginForm" class="loginForm" name="loginForm" action="login.php" method="post">
+        <form id="loginForm" class="loginForm" name="loginForm" action="../login.php" method="post">
             <div class="textfields">
-                <label>Email</label>
+                <label for="login_email">Email</label>
                     <input type="text" id="login_email" name="login_email" required>
             </div>
 
             <div class="textfields">
-                <label>Password</label>
+                <label for="login_password">Password</label>
                     <input type="password" id="login_password" name="login_password" required>
             </div>
 
@@ -32,7 +32,7 @@
             </div>
 
             <div class="footer">
-                Not a member? <a href="register.php">Register</a>
+                Not a member? <a href="../register.php">Register</a>
             </div>
         </form>
     </div>

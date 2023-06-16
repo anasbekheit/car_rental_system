@@ -167,7 +167,7 @@ function isValidCreditCard(creditCard) {
         Discover: /^6(?:011|5)/
     };
 
-    for (const [cardType, prefixPattern] of Object.entries(prefixes)) {
+    for (const [_, prefixPattern] of Object.entries(prefixes)) {
         if (prefixPattern.test(creditCard)) {
             return true;
         }
