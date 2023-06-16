@@ -1,24 +1,24 @@
 <?php
+// mysqli_report(MYSQLI_REPORT_ALL);
+// error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+
 if (session_id() === '') {
     session_start(); // Only start the session if it is not already active
 }
 $errors = array();
-
 // connect to the database
 $db = mysqli_connect('localhost', 'root', '', 'car_rental_system');
-
 // Function to check if a user with the given email already exists
 function alreadyExists($email): bool
 {
     global $db;
-
     $query = "SELECT * FROM customer WHERE email=?";
-    $statement = mysqli_prepare($db, $query);
-    mysqli_stmt_bind_param($statement, "s", $email);
-    mysqli_stmt_execute($statement);
-    mysqli_stmt_store_result($statement);
-
-    return mysqli_stmt_num_rows($statement) > 0;
+    $statement = $db->prepare($query);
+    $statement->bind_param("s", $email);
+    $statement->execute();
+    $statement->store_result();
+    return $statement->num_rows() > 0;
 }
 
 // Function to insert a new user into the database
@@ -30,9 +30,9 @@ function registerUser($fname, $lname, $email, $password, $country, $credit_card)
 
     $query = "INSERT INTO customer (fname, lname, email, customer_pass, country, credit_card) 
               VALUES (?, ?, ?, ?, ?, ?)";
-    $statement = mysqli_prepare($db, $query);
-    mysqli_stmt_bind_param($statement, "ssssss", $fname, $lname, $email, $hashedPassword, $country, $credit_card);
-    mysqli_stmt_execute($statement);
+    $statement = $db->prepare($query);
+    $statement->bind_param("ssssss", $fname, $lname, $email, $hashedPassword, $country, $credit_card);
+    $statement->execute();
 
     $user = [
         'email' => $email,
@@ -57,15 +57,14 @@ function validateCredentials($email, $password)
     $hashedPassword = md5($password);
 
     $query = "SELECT customer_id, email, fname, lname, country, credit_card FROM customer WHERE email=? AND customer_pass=?";
-    $statement = mysqli_prepare($db, $query);
-    mysqli_stmt_bind_param($statement, "ss", $email, $hashedPassword);
-    mysqli_stmt_execute($statement);
-    mysqli_stmt_store_result($statement);
+    $statement = $db->prepare($query);
+    $statement->bind_param("ss", $email, $hashedPassword);
+    $statement->execute();
+    $statement->store_result();
 
-    if (mysqli_stmt_num_rows($statement) == 1) {
-        mysqli_stmt_bind_result($statement, $customer_id, $email, $fname, $lname, $country, $credit_card);
-        mysqli_stmt_fetch($statement);
-
+    if ($statement->num_rows() == 1) {
+        $statement->bind_result($customer_id, $email, $fname, $lname, $country, $credit_card);
+        $statement->fetch();
         $user = [
             'email' => $email,
             'fname' => $fname,
@@ -76,6 +75,5 @@ function validateCredentials($email, $password)
 
         return $user;
     }
-
     return null;
 }

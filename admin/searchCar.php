@@ -33,7 +33,7 @@ if(isset($_POST['search_car']))
     $car_status = mysqli_real_escape_string($db, $_POST['car_status']);
 
     $query="SELECT plate_id,car_model,car_manufacturer,color,model_year,country,price_per_day,car_status FROM car WHERE 1 ";
-    $where = getWhere($car_model, $car_price, $car_manufacturer, $car_country, $car_color);
+    $where = get_where($car_model, $car_price, $car_manufacturer, $car_country, $car_color);
     if (!empty($car_status)) { $where.="AND car_status= '$car_status' "; }
     if (!empty($plate_id)) { $where.="AND plate_id= '$plate_id' "; }
     if (!empty($model_year)) { $where.="AND model_year= '$model_year' "; }
