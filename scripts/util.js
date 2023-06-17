@@ -3,7 +3,7 @@ export function updateUsername(username) {
 }
 export function logout() {
     sessionStorage.removeItem('loggedIn');
-    window.location.href = '../logic/index.php';
+    window.location.href = '../logic/index.php?logout=1';
 }
 export function setSessionVariable(variableName, variableValue) {
     // Create a new FormData object
