@@ -40,7 +40,7 @@ if(isset($_POST['pay_button'])){
      {
          echo "reservation made"."<br>";
 
-         header('location: view-reservation.php');
+         header('location: view_reservation.php');
      }
      else
      {
@@ -61,7 +61,7 @@ if(isset($_POST['pay_button'])){
     
 <div class="header">
 	<div class="topbar">
-		<a href="index.php"><img class="logo" src="css/logo/colored/logo-white.svg"></a>
+		<a href="index.php"><img class="logo" src="../css/logo/colored/logo-white.svg"></a>
    		 <!-- logged in user information -->
     	<?php  if (isset($_SESSION['user'])) : ?>
 		<div class="welcome">

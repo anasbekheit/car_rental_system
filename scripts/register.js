@@ -111,7 +111,7 @@ function displayErrors(errors) {
 
 function registerUser(formData) {
 
-    fetch('register.php', {
+    fetch('../logic/register.php', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -123,7 +123,7 @@ function registerUser(formData) {
             if(!response.redirected){
               return response.json();
             }else{
-                window.location.href = 'index.php';
+                window.location.href = '../logic/index.php';
                 return Promise.reject('Redirection occurred');
             }
         })

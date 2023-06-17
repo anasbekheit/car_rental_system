@@ -119,4 +119,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     echo json_encode($errors);
 }
-include 'view/register.html';
+include '../view/register.html';

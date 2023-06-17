@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             login_password: password
         };
         // Send an AJAX request to the login.php file
-        fetch('../login.php', {
+        fetch('../logic/login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

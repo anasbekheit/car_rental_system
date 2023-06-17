@@ -76,7 +76,7 @@ if (isset($_POST['login_user'])) {
             </div>
 
             <div class="footer">
-                Not an admin?   <a href="../login.php">Head to customer page</a>
+                Not an admin?   <a href="../logic/login.php">Head to customer page</a>
             </div>
         </form>
     </div>

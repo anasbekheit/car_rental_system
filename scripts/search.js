@@ -1,5 +1,5 @@
 function logout() {
-    window.location.href = '../index.php?logout=1';
+    window.location.href = '../logic/index.php?logout=1';
 }
 function isValidDate(dateString)
 {
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const formData = new FormData(searchForm);
 
         // Send an AJAX request to the search.php file
-        fetch('../search.php', {
+        fetch('../logic/search.php', {
             method: 'POST',
             body: formData
         })
@@ -145,7 +145,7 @@ function setSessionVariable(variableName, variableValue) {
     formData.append('variableValue', variableValue);
 
     // Send an AJAX request to the PHP script
-    fetch('../set_session_variable.php', {
+    fetch('../logic/set_session_variable.php', {
         method: 'POST',
         body: formData
     })

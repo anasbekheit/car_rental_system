@@ -30,13 +30,13 @@ if($results && $results->num_rows>0){
 ?>
 <html lang="en">
 <head>
-<link rel="stylesheet" type="text/css" href="css/view-reservations-styling.css">
+<link rel="stylesheet" type="text/css" href="../css/view-reservations-styling.css">
      <title>Your Reservations </title>
     </head>
 <body>
     <div class="header">
 <div class="topbar">
-		<a href="/view/index.html"><img class="logo" src="css/logo/colored/logo-white.svg" alt="Rently's Logo"></a>
+		<a href="../view/index.html"><img class="logo" src="../css/logo/colored/logo-white.svg" alt="Rently's Logo"></a>
    		 <!-- logged in user information -->
     	<?php  if (isset($_SESSION['user'])) : ?>
 		<div class="welcome">
@@ -58,7 +58,7 @@ if($results && $results->num_rows>0){
 	</div>
         </div>
 
-<div class="back"><a href="view/index.html">< Back</a></div>
+<div class="back"><a href="../view/index.html">< Back</a></div>
 
 <div class="title"><p>Your Reservations</p></div>
 
