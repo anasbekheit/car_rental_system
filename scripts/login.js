@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => {
                 if (response.ok) {
                     // Redirect to the desired page after successful login
-                    window.location.href = "index.html";
+                    window.location.href = response.url;
+                    sessionStorage.setItem('loggedIn','true');
                 } else {
                     const error = document.getElementById('error-message');
                     error.innerText = "Incorrect username and/or password";

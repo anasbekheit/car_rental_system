@@ -1,7 +1,5 @@
+import {logout, updateUsername} from "./util.js";
 let username = '';
-function updateUsername() {
-    document.getElementById("username").innerText = username;
-}
 // Fetch The username from server
 fetch('../logic/index.php')
     .then(response => {
@@ -21,9 +19,11 @@ fetch('../logic/index.php')
         console.log("data is : " + data);
         username = data;
         if (document.readyState === 'complete') {
-            updateUsername();
+            updateUsername(username);
         } else {
-            window.addEventListener('load', updateUsername);
+            window.addEventListener('load', function (){
+                updateUsername(username);
+            });
         }
     })
     .catch(error => console.error('Error:', error));
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded",
         document.getElementById("logoutLink").addEventListener("click", function(event) {
             event.preventDefault(); // Prevent the default link behavior (navigation)
             // Redirect to logout URL
-            window.location.href = '../logic/index.php?logout=1';
+            logout();
         });
 
         // Put the username

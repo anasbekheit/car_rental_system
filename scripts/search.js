@@ -1,33 +1,4 @@
-function logout() {
-    window.location.href = '../logic/index.php?logout=1';
-}
-function isValidDate(dateString)
-{
-    // First check for the pattern
-    //Function checks against regex pattern for mm/dd/yyyy
-    // In reality the default format is yyyy-mm-dd
-    if(!/^\d{4}-\d{1,2}-\d{1,2}$/.test(dateString))
-        return false;
-
-    // Parse the date parts to integers
-    const parts = dateString.split("-");
-    const day = parseInt(parts[2], 10);
-    const month = parseInt(parts[1], 10);
-    const year = parseInt(parts[0], 10);
-
-    // Check the ranges of month and year
-    if(year < 1000 || year > 3000 || month < 1 || month > 12)
-        return false;
-
-    const monthLength = [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ];
-
-    // Adjust for leap years
-    if(year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0))
-        monthLength[1] = 29;
-
-    // Check the range of the day
-    return day > 0 && day <= monthLength[month - 1];
-}
+import {isValidDate, setSessionVariable} from "./util.js";
 function correctDates(fromDate, toDate) {
     if ( !isValidDate(fromDate) || !isValidDate(toDate)){
         alert("Invalid Dates.\nFormat should be mm/dd/yyyy.");
@@ -134,29 +105,4 @@ function createCarCard(searchResults, result, fromDate, toDate) {
         setSessionVariable('toDate', toDate);
         window.location.href = '../view/reservation.html';
     })
-}
-// Create a function to set the session variable
-function setSessionVariable(variableName, variableValue) {
-    // Create a new FormData object
-    variableValue = JSON.stringify(variableValue);
-    sessionStorage.setItem(variableName, variableValue);
-    const formData = new FormData();
-    formData.append('variableName', variableName);
-    formData.append('variableValue', variableValue);
-
-    // Send an AJAX request to the PHP script
-    fetch('../logic/set_session_variable.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => {
-            if (response.ok) {
-                console.log('Session variable set successfully');
-            } else {
-                console.error('Failed to set session variable');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
 }

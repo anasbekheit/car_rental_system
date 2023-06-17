@@ -4,7 +4,7 @@
  */
 require_once 'server.php';
 if (isset($_SESSION['user'])) {
-    header('location: index.php');
+    header('location: ../view/index.html');
     exit;
 }
 function checkFields($first_name, $last_name, $email, $password_1, $password_2, $country, $credit_card): array
@@ -100,10 +100,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fname = trim($data->fname);
     $lname = trim($data->lname);
     $email = trim($data->email);
-    $password_1 = $data->password;
-    $password_2 = $data->confirm_password;
     $country = trim($data->country);
     $credit_card = trim($data->credit_card);
+    $password_1 = $data->password;
+    $password_2 = $data->confirm_password;
 
     // CHECK THAT THE USER HAS ALL FIELDS ENTERED CORRECTLY
     $errors = checkFields($fname, $lname, $email, $password_1, $password_2, $country, $credit_card);
@@ -119,4 +119,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     echo json_encode($errors);
 }
-include '../view/register.html';

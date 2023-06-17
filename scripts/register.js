@@ -1,34 +1,11 @@
-// Array of valid countries
-const validCountries = [
-    'USA',
-    'Canada',
-    'United Kingdom',
-    'Egypt'
-    // Add more valid countries here
-];
-document.addEventListener('DOMContentLoaded', function() {
-    const registerForm = document.getElementById('registrationForm');
-    const errorMessages = document.getElementById('errorMessages');
-    fillCountries();
-
-    registerForm.addEventListener('submit', function(event) {
-        event.preventDefault();
-        errorMessages.innerHTML = '';
-        const errors = validateForm();
-        if (errors.length > 0) {
-            displayErrors(errors);
-            return;
-        }
-        let inputs = registerForm.getElementsByClassName("input");
-        let formData = {};
-        for(let i=0; i< inputs.length; i++){
-            formData[inputs[i].name] = inputs[i].value;
-        }
-        let json = JSON.stringify(formData);
-        registerUser(json);
-    });
-});
-
+import {
+    isValidName,
+    isValidEmail,
+    isValidPassword,
+    isValidCountry,
+    isValidCreditCard,
+    displayErrors
+} from "./util.js";
 
 function validateForm() {
     const errors = [];
@@ -78,7 +55,7 @@ function validateForm() {
 
     if (country === '') {
         errors.push({ message: 'Country is required', inputId: 'country' });
-    } else if (!isValidCountry(country)) {
+    } else if (!isValidCountry(validCountries, country)) {
         errors.push({ message: 'Invalid country', inputId: 'country' });
     }
 
@@ -90,93 +67,6 @@ function validateForm() {
 
     return errors;
 }
-
-function displayErrors(errors) {
-    // Remove any existing errors message for the input field
-    const existingErrors = document.querySelectorAll('.error');
-    existingErrors.forEach(error=>error.remove());
-    errors.forEach(function (error) {
-        const errorElement = document.createElement('p');
-        errorElement.classList.add('error');
-        errorElement.textContent = error['message'];
-
-        // Get the input field and its parent element
-        const inputField = document.getElementById(error['inputId']);
-        const parentElement = inputField.parentElement;
-        // Append the error message after the input field
-        parentElement.appendChild(errorElement);
-    });
-}
-
-
-function registerUser(formData) {
-
-    fetch('../logic/register.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: formData
-    },
-        )
-        .then(response => {
-            if(!response.redirected){
-              return response.json();
-            }else{
-                window.location.href = '../logic/index.php';
-                return Promise.reject('Redirection occurred');
-            }
-        })
-        .then(errors => errors && displayErrors(errors))
-        .catch(error => console.error('Error:', error));
-}
-
-function isValidName(name) {
-    const regex = /^[a-zA-Z]{1,16}$/;
-    return regex.test(name);
-}
-
-function isValidEmail(email) {
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return regex.test(email);
-}
-
-function isValidPassword(password) {
-    const regex = /^[a-zA-Z0-9]{8,}$/;
-    return regex.test(password);
-}
-
-function isValidCountry(country) {
-    return validCountries.includes(country);
-}
-
-function isValidCreditCard(creditCard) {
-    // Remove any non-digit characters from the credit card number
-    creditCard = creditCard.replace(/[^0-9]/g, '');
-
-    // Check the length of the credit card number
-    if (creditCard.length < 13 || creditCard.length > 16) {
-        return false;
-    }
-
-    // Perform prefix-based validation for some commonly used card types
-    const prefixes = {
-        Visa: /^4/,
-        Mastercard: /^5[1-5]/,
-        'American Express': /^3[47]/,
-        Discover: /^6(?:011|5)/
-    };
-
-    for (const [_, prefixPattern] of Object.entries(prefixes)) {
-        if (prefixPattern.test(creditCard)) {
-            return true;
-        }
-    }
-
-    // If the credit card number doesn't match any known prefixes, it is invalid
-    return false;
-}
-
 function fillCountries() {
     // Get the select element
     const countrySelect = document.getElementById('country');
@@ -189,3 +79,59 @@ function fillCountries() {
         countrySelect.appendChild(option);
     });
 }
+function registerUser(formData) {
+
+    fetch('../logic/register.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: formData
+        },
+    )
+        .then(response => {
+            if(!response.redirected){
+                return response.json();
+            }else{
+                window.location.href = '../view/index.html';
+                return Promise.reject('Redirection occurred');
+            }
+        })
+        .then(errors => errors && displayErrors(errors))
+        .catch(error => console.error('Error:', error));
+}
+
+// Array of valid countries
+const validCountries = [
+    'USA',
+    'Canada',
+    'United Kingdom',
+    'Egypt'
+    // Add more valid countries here
+];
+
+if(sessionStorage.getItem('loggedIn') === 'true'){
+    window.location.href = '../view/index.html';
+}
+document.addEventListener('DOMContentLoaded', function() {
+    const registerForm = document.getElementById('registrationForm');
+    const errorMessages = document.getElementById('errorMessages');
+    fillCountries();
+
+    registerForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        errorMessages.innerHTML = '';
+        const errors = validateForm();
+        if (errors.length > 0) {
+            displayErrors(errors);
+            return;
+        }
+        let inputs = registerForm.getElementsByClassName("input");
+        let formData = {};
+        for(let i=0; i< inputs.length; i++){
+            formData[inputs[i].name] = inputs[i].value;
+        }
+        let json = JSON.stringify(formData);
+        registerUser(json);
+    });
+});

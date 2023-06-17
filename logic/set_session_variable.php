@@ -1,5 +1,6 @@
 <?php
 // Start the session
+//TODO Security address concern $variableName = $_POST['variableName']. "custom";
 require_once 'server.php';
 // Get the variable name and value from the AJAX request
 $variableName = $_POST['variableName'];

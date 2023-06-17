@@ -19,20 +19,6 @@ function createCarInfo() {
     img.src = car['car_image'];
     parentElement.appendChild(img);
 }
-document.addEventListener('DOMContentLoaded',function () {
-
-    createCarInfo();
-    // Back to search button click event
-    document.getElementById('back_to_search').addEventListener('click', () => {
-        sessionStorage.removeItem('car');
-        window.location.href = 'search.html';
-    });
-
-    // Checkout button
-    document.getElementById('proceed_to_checkout').addEventListener('click',() => {
-
-    });
-});
 
 function createPropertyElement(id, label, value) {
     const propertyElement = document.createElement('p');
@@ -56,3 +42,18 @@ function calculateTotalAmount(car) {
     const totalDays = Math.ceil((to - from) / (1000 * 60 * 60 * 24)); //Convert from milliseconds to days
     return '$' + (pricePerDay * totalDays).toFixed(2);
 }
+
+document.addEventListener('DOMContentLoaded',function () {
+
+    createCarInfo();
+    // Back to search button click event
+    document.getElementById('back_to_search').addEventListener('click', () => {
+        sessionStorage.removeItem('car');
+        window.location.href = 'search.html';
+    });
+
+    // Checkout button
+    document.getElementById('proceed_to_checkout').addEventListener('click',() => {
+
+    });
+});

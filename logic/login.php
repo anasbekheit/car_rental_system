@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($user !== null) {
         $_SESSION['user'] = $user;
         header("HTTP/1.1 200 OK");
+        header('location: ../view/index.html');
     } else {
         header('Content-Type: application/json');
         header("HTTP/1.1 401 Unauthorized");
