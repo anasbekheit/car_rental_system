@@ -51,3 +51,11 @@ EXTRA TASKS
 -discounts
 -customer change password and name
 -ajax
+
+>>>>TOCHECK:
+SCRIMBA : live code editor.
+
+>>>>TODO:
+CHECK SECURITY CONCERNS IF USER IS ABLE TO MANIPULATE STUFF.
+LOGOUT IN EVERY PAGE SHOULD REFERENCE index.php?logout=1
+REMOVE reservation.php

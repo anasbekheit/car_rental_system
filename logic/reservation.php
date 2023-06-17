@@ -7,10 +7,6 @@ $results = array();
 if (!isset($_SESSION['user'])) {
     header('location: ../view/login.html');
 }
-if (isset($_GET['logout'])) {
-    unset($_SESSION['user']);
-    header("location: ../view/login.html");
-}
 if (!isset($_SESSION['car'])) {
     header('location: ../view/search.html');
 }

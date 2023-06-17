@@ -6,10 +6,6 @@ require_once 'server.php';
 if (!isset($_SESSION['user'])) {
     header('location: login.php');
 }
-if (isset($_GET['logout'])) {
-    unset($_SESSION['user']);
-    header("location: login.php");
-}
 
 /**
  * @param $car_model

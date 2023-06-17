@@ -34,15 +34,13 @@ function registerUser($fname, $lname, $email, $password, $country, $credit_card)
     $statement->bind_param("ssssss", $fname, $lname, $email, $hashedPassword, $country, $credit_card);
     $statement->execute();
 
-    $user = [
+    return [
         'email' => $email,
         'fname' => $fname,
         'lname' => $lname,
         'country' => $country,
         'credit_card' => $credit_card
     ];
-
-    return $user;
 }
 
 // Function to validate the user's credentials
