@@ -1,4 +1,3 @@
-
 CREATE DATABASE car_rental_system;
 
 CREATE TABLE CAR
