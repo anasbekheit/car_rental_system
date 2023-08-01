@@ -5,30 +5,6 @@ export function logout() {
     sessionStorage.removeItem('loggedIn');
     window.location.href = '../logic/index.php?logout=1';
 }
-export function setSessionVariable(variableName, variableValue) {
-    // Create a new FormData object
-    variableValue = JSON.stringify(variableValue);
-    sessionStorage.setItem(variableName, variableValue);
-    const formData = new FormData();
-    formData.append('variableName', variableName);
-    formData.append('variableValue', variableValue);
-
-    // Send an AJAX request to the PHP script
-    fetch('../logic/set_session_variable.php', {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => {
-            if (response.ok) {
-                console.log('Session variable set successfully');
-            } else {
-                console.error('Failed to set session variable');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-}
 export function displayErrors(errors) {
     // Remove any existing errors message for the input field
     const existingErrors = document.querySelectorAll('.error');

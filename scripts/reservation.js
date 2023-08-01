@@ -48,6 +48,7 @@ document.addEventListener('DOMContentLoaded',function () {
     createCarInfo();
     // Back to search button click event
     document.getElementById('back_to_search').addEventListener('click', () => {
+        console.log("zbi");
         sessionStorage.removeItem('car');
         window.location.href = 'search.html';
     });

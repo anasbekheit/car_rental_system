@@ -1,4 +1,4 @@
-import {isValidDate, setSessionVariable} from "./util.js";
+import {isValidDate} from "./util.js";
 function correctDates(fromDate, toDate) {
     if ( !isValidDate(fromDate) || !isValidDate(toDate)){
         alert("Invalid Dates.\nFormat should be mm/dd/yyyy.");
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(response => response.json())
             .then(data => {
                 // Remove the old search results
-                const oldSearchResults = document.querySelector('.search_results');
+                const oldSearchResults = document.querySelector('.card-container');
                 if (oldSearchResults) {
                     oldSearchResults.remove();
                 }
@@ -100,9 +100,9 @@ function createCarCard(searchResults, result, fromDate, toDate) {
     div.appendChild(info);
     searchResults.appendChild(div);
     button.addEventListener('click', function () {
-        setSessionVariable('car', result);
-        setSessionVariable('fromDate', fromDate);
-        setSessionVariable('toDate', toDate);
+        sessionStorage.setItem('car', JSON.stringify(result));
+        sessionStorage.setItem('fromDate', fromDate);
+        sessionStorage.setItem('toDate', toDate);
         window.location.href = '../view/reservation.html';
     })
 }

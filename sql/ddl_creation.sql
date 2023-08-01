@@ -68,14 +68,23 @@ CREATE TRIGGER tg_bi_reservation
             );
 
 
-DELIMITER //
-CREATE TRIGGER tg_bi_reservation_overlap BEFORE INSERT ON reservation
-    FOR EACH ROW BEGIN
-    IF(EXISTS (SELECT * FROM reservation WHERE (plate_id = NEW.plate_id) AND ( (NEW.pickup_time BETWEEN pickup_time AND return_time) OR (NEW.return_time BETWEEN pickup_time AND return_time)) )
+CREATE TRIGGER tg_bi_reservation_overlap
+BEFORE INSERT ON reservation
+FOR EACH ROW
+BEGIN
+    IF(EXISTS (
+        SELECT *
+        FROM
+        reservation
+        WHERE plate_id = NEW.plate_id 
+        AND ( 
+            (NEW.pickup_time BETWEEN pickup_time AND return_time)
+            OR (NEW.return_time BETWEEN pickup_time AND return_time)
+            )
         )
+     )
     THEN SIGNAL SQLSTATE '45000'
         SET MESSAGE_TEXT = 'OVERLAPPING INSERT @ RESERVATIONS TABLE';
 
     END IF;
-END //
-DELIMITER ;
+END ;
