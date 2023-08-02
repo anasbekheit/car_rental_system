@@ -79,27 +79,25 @@ function fillCountries() {
         countrySelect.appendChild(option);
     });
 }
-function registerUser(formData) {
-
-    fetch('../logic/register.php', {
+async function registerUser(formData) {
+    try {
+        const response = await fetch('../logic/register.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
             body: formData
-        },
-    )
-        .then(response => {
-            if(!response.redirected){
-                return response.json();
-            }else{
-                window.location.href = '../view/index.html';
-                return Promise.reject('Redirection occurred');
-            }
-        })
-        .then(errors => errors && displayErrors(errors))
-        .catch(error => console.error('Error:', error));
+        });
+
+        if (response.redirected) {
+            window.location.href = '../view/index.html';
+            return Promise.reject('Redirection occurred');
+        }
+
+        const errors = await response.json();
+        errors && displayErrors(errors);
+    } catch (error) {
+        console.error('Error:', error);
+    }
 }
+
 
 // Array of valid countries
 const validCountries = [

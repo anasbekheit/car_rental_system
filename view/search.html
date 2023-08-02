@@ -19,9 +19,10 @@
         <!-- Back button -->
     </div>
 </div>
-<form class="search_form" name="searchForm" method="post" action="../logic/search.php">
+<form autocomplete="off" class="search_form" name="searchForm" method="post" action="../logic/search.php">
     <label for="car_manufacturer">Car Manufacturer:</label>
-    <input type="text" id="car_manufacturer" name="car_manufacturer">
+    <input autocomplete="off" type="text" id="car_manufacturer" name="car_manufacturer">
+    <div id="auto_complete"></div>
 
     <label for="car_model">Car Model:</label>
     <input type="text" id="car_model" name="car_model">

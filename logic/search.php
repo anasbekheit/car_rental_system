@@ -2,11 +2,76 @@
 /**
  * @var mysqli $db
  */
+$sampleCars = null;
+$allowed = ['retrieveAvailableCars', 'search'];
 require_once 'server.php';
 if (!isset($_SESSION['user'])) {
     header('location: login.php');
 }
+if(in_array($_GET['action'], $allowed)){
+    echo json_encode(call_user_func($_GET['action']) ?? "");
+}
 
+function retrieveAvailableCars(){
+    global $db, $sampleCars;
+    $query = "SELECT car_model, car_manufacturer FROM car WHERE car_status = 'active'";
+    $statement = $db->prepare($query);
+    if(!$sampleCars){
+        if ($statement) {
+            $statement->execute();
+            $result = $statement->get_result();
+            $sampleCars = $result->fetch_all(MYSQLI_ASSOC);
+            $statement->close();
+            $db->close();
+        }else{
+            $error = $db->error;
+            // Log or display the error message
+            error_log("Error preparing the statement: " . $error);
+        }
+    }
+    return $sampleCars;
+}
+
+function search(){
+    global $db;
+    // receive all input values from the form
+    $car_model = $_GET['car_model'] ?? "";
+    $car_price = $_GET['car_price'] ?? "";
+    $car_manufacturer = $_GET['car_manufacturer'] ?? "";
+    $car_color = $_GET['car_color'] ?? "";
+    $car_country = $_GET['car_country'] ?? "";
+    $from_date = $_GET['from_date'] ?? "";
+    $to_date = $_GET['to_date'] ?? "";
+
+    $query = "SELECT plate_id, car_model, car_manufacturer, color, model_year, country, price_per_day, car_status, car_image FROM car WHERE car_status = 'active' ";
+    $whereData = get_where($car_model, $car_price, $car_manufacturer, $car_country, $car_color);
+    $query .= $whereData['where'];
+    $query .= " EXCEPT (SELECT plate_id, car_model, car_manufacturer, color, model_year, country, price_per_day, car_status, car_image FROM reservation NATURAL JOIN car " . get_data_time($from_date, $to_date) . ")";
+// Bind the parameters
+    $dataTypes = str_repeat("s", count($whereData['params']) + 2);
+    $var_args = array_merge($whereData['params'], [$from_date, $to_date]);
+
+    $statement = $db->prepare($query);
+
+    if ($statement) {
+        $statement->bind_param($dataTypes, ...$var_args);
+        $statement->execute();
+        $result = $statement->get_result();
+        $rows = $result->fetch_all(MYSQLI_ASSOC);
+        $statement->close();
+        $db->close();
+
+        // Set the from & to dates so you can charge the customer.
+        $_SESSION['from_date'] =$from_date;
+        $_SESSION['to_date'] = $to_date;
+    }else{
+        $error = $db->error;
+        // Log or display the error message
+        error_log("Error preparing the statement: " . $error);
+    }
+    return $rows?? null;
+
+}
 /**
  * @param $car_model
  * @param $car_price
@@ -56,50 +121,3 @@ function get_data_time($from_date, $to_date): string
     return $query;
 }
 
-// receive all input values from the form
-$car_model = $_POST['car_model'] ?? "";
-$car_price = $_POST['car_price'] ?? "";
-$car_manufacturer = $_POST['car_manufacturer'] ?? "";
-$car_color = $_POST['car_color'] ?? "";
-$car_country = $_POST['car_country'] ?? "";
-$from_date = $_POST['from_date'] ?? "";
-$to_date = $_POST['to_date'] ?? "";
-
-$query = "SELECT plate_id, car_model, car_manufacturer, color, model_year, country, price_per_day, car_status, car_image FROM car WHERE car_status = 'active' ";
-$whereData = get_where($car_model, $car_price, $car_manufacturer, $car_country, $car_color);
-$query .= $whereData['where'];
-$query .= " EXCEPT (SELECT plate_id, car_model, car_manufacturer, color, model_year, country, price_per_day, car_status, car_image FROM reservation NATURAL JOIN car " . get_data_time($from_date, $to_date) . ")";
-
-$statement = $db->prepare($query);
-
-if ($statement) {
-    // Bind the parameters
-    $dataTypes = str_repeat("s", count($whereData['params']) + 2);
-    $var_args = array_merge($whereData['params'], [$from_date, $to_date]);
-    // Bind the parameters
-   $statement->bind_param($dataTypes, ...$var_args);
-
-    // Execute the statement
-    mysqli_stmt_execute($statement);
-
-    // Get the results
-    $result = mysqli_stmt_get_result($statement);
-
-    // Fetch the data
-    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-
-    // Free the statement and close the connection
-    mysqli_stmt_close($statement);
-    mysqli_close($db);
-
-    // Set the from & to dates so you can charge the customer.
-    $_SESSION['from_date'] =$from_date;
-    $_SESSION['to_date'] = $to_date;
-}else{
-    $error = mysqli_error($db);
-    // Log or display the error message
-    error_log("Error preparing the statement: " . $error);
-}
-// Return the data as JSON
-header('Content-Type: application/json');
-echo json_encode($rows ?? "");

@@ -1,4 +1,5 @@
 import {isValidDate} from "./util.js";
+
 function correctDates(fromDate, toDate) {
     if ( !isValidDate(fromDate) || !isValidDate(toDate)){
         alert("Invalid Dates.\nFormat should be mm/dd/yyyy.");
@@ -18,91 +19,149 @@ function correctDates(fromDate, toDate) {
 
     return true;
 }
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the search form element
-    const searchForm = document.querySelector('.search_form');
-    document.getElementById('search_btn');
 
-    // Add event listener for form submission
-    searchForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the default form submission
-
-        // Get the "from" and "to" date values
-        const fromDate = document.getElementById('from_date').value;
-        const toDate = document.getElementById('to_date').value;
-
-        // Validate the dates
-        if(!correctDates(fromDate, toDate)){
-            return;
+async function searchData(formData) {
+    try {
+        const url = `../logic/search.php?action=search&${new URLSearchParams(formData).toString()}`;
+        console.log(url);
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Something went wrong!');
         }
+        return response.json();
+    } catch (error) {
+        throw error;
+    }
+}
 
-        // Create a new FormData object
-        const formData = new FormData(searchForm);
+function displaySearchResults(data, fromDate, toDate) {
+    const results = document.createElement('div');
+    const cardContainerClass = 'card-container'
+    results.classList.add(cardContainerClass);
 
-        // Send an AJAX request to the search.php file
-        fetch('../logic/search.php', {
-            method: 'POST',
-            body: formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                // Remove the old search results
-                const oldSearchResults = document.querySelector('.card-container');
-                if (oldSearchResults) {
-                    oldSearchResults.remove();
-                }
-                // Process the returned data
-                console.log(data);
-                // Create a new search results section
-                const searchResults = document.createElement('div');
-                searchResults.classList.add('card-container');
-                document.body.appendChild(searchResults);
+    data.length > 0 ? data.forEach(car => createCarCard(results, car, fromDate, toDate))
+        : results.textContent = 'No results found.';
 
-                if (data.length > 0) {
-                    data.forEach(result => createCarCard(searchResults, result, fromDate, toDate));
-                } else {
-                    // Display a message if no results found
-                    searchResults.textContent = 'No results found.';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
-    });
-});
+    const oldResults = document.querySelector(`.${cardContainerClass}`);
+    oldResults?.replaceWith(results) || document.body.appendChild(results);
+}
 
 function createCarCard(searchResults, result, fromDate, toDate) {
-    // Create HTML elements for each result
+    const { car_image, car_manufacturer, car_model, price_per_day, model_year, country } = result;
+
     const div = document.createElement('div');
-    const img = document.createElement('img');
-    const button = document.createElement('button');
-    const h1 = document.createElement('h1');
-    const price = document.createElement('p');
-    const info = document.createElement('p');
-    // Set attributes of elements
     div.classList.add('card');
-    img.src = result.car_image;
+
+    const img = document.createElement('img');
+    img.src = car_image;
+
+    const button = document.createElement('button');
     button.type = 'submit';
     button.name = 'button';
-    price.classList.add('price');
-
-    // Set content of the elements
     button.innerText = 'View';
-    h1.textContent = result.car_manufacturer + ' : ' + result.car_model;
-    price.textContent = result.price_per_day + '$';
-    info.textContent = `Model year: ${result.model_year}.\nCountry: ${result.country}`;
-
-    // Append elements to the search results section
-    div.appendChild(img);
-    div.appendChild(button);
-    div.appendChild(h1);
-    div.appendChild(price);
-    div.appendChild(info);
-    searchResults.appendChild(div);
     button.addEventListener('click', function () {
         sessionStorage.setItem('car', JSON.stringify(result));
         sessionStorage.setItem('fromDate', fromDate);
         sessionStorage.setItem('toDate', toDate);
         window.location.href = '../view/reservation.html';
-    })
+    });
+
+    const h1 = document.createElement('h1');
+    h1.textContent = `${car_manufacturer} : ${car_model}`;
+
+    const price = document.createElement('p');
+    price.classList.add('price');
+    price.textContent = `${price_per_day}$`;
+
+    const info = document.createElement('p');
+    info.textContent = `Model year: ${model_year}.\nCountry: ${country}`;
+
+    div.appendChild(img);
+    div.appendChild(button);
+    div.appendChild(h1);
+    div.appendChild(price);
+    div.appendChild(info);
+
+    searchResults.appendChild(div);
 }
+
+let manufacturers, models;
+// Using async/await with fetch API
+async function retrieveAvailableCars() {
+    try {
+        const url = '../logic/search.php?action=retrieveAvailableCars';
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return await response.json(); // You can return the list of available cars if needed.
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Rethrow the error for the caller to handle if needed.
+    }
+}
+
+function autocompleteMatch(input) {
+    if (input === '') {
+        return [];
+    }
+    const reg = new RegExp(input);
+    return manufacturers.filter(function(term) {
+        if (term.match(reg)) {
+            return term;
+        }
+    });
+}
+
+function showResults(val) {
+    const res = document.getElementById("auto_complete");
+    res.innerHTML = '';
+    let list = '';
+    let terms = autocompleteMatch(val);
+    for (let i=0; i<terms.length; i++) {
+        list += '<li>' + terms[i] + '</li>';
+    }
+    res.innerHTML = '<ul>' + list + '</ul>';
+}
+
+function separate(searchData) {
+    const manufacturers = [];
+    const models = [];
+
+    searchData.forEach(datum => {
+        models.push(datum.car_model); // Use push instead of concat
+        manufacturers.push(datum.car_manufacturer); // Use push instead of concat
+    });
+
+    return [manufacturers, models];
+}
+document.addEventListener('DOMContentLoaded', async function() {
+    const searchDataResult = await retrieveAvailableCars();
+    [manufacturers, models] = separate(searchDataResult);
+    console.log(manufacturers);
+    console.log(models);
+    document.querySelector('.search_form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const fromDate = document.getElementById('from_date').value;
+        const toDate = document.getElementById('to_date').value;
+
+        if (!correctDates(fromDate, toDate)) {
+            return;
+        }
+
+        const formData = new FormData(this);
+
+        try {
+            const data = await searchData(formData);
+            displaySearchResults(data, fromDate, toDate);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    });
+    
+    document.getElementById('car_manufacturer').addEventListener('keyup', function () {
+        showResults(this.value);
+    })
+});

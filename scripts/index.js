@@ -1,53 +1,64 @@
 import {logout, updateUsername} from "./util.js";
+
 let username = '';
-// Fetch The username from server
-fetch('../logic/index.php')
-    .then(response => {
-        if(!response.ok){
-            console.log("not response");
+
+async function fetchUsername() {
+    try {
+        const response = await fetch('../logic/index.php');
+
+        if (!response.ok) {
             throw new Error("Something went wrong!");
         }
-        if(response.redirected){
+
+        if (response.redirected) {
             console.log("redirected");
             window.location.href = '../view/login.html';
             return Promise.reject('Redirection occurred');
-        }else{
-            return response.json();
+        } else {
+            const data = await response.json();
+            console.log("data is : " + data);
+            return data;
         }
-    })
-    .then(data => {
-        console.log("data is : " + data);
-        username = data;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Rethrow the error for the outer catch block, if needed.
+    }
+}
+
+async function init() {
+    try {
+        username = await fetchUsername();
         if (document.readyState === 'complete') {
             updateUsername(username);
         } else {
-            window.addEventListener('load', function (){
+            window.addEventListener('load', function() {
                 updateUsername(username);
             });
         }
-    })
-    .catch(error => console.error('Error:', error));
+    } catch (error) {
+        // Handle the error as needed
+        console.error('Error:', error);
+    }
+}
+!sessionStorage.getItem('loggedIn')? window.location.href = '../view/login.html' : init();
+document.addEventListener("DOMContentLoaded", function() {
 
-document.addEventListener("DOMContentLoaded",
-    function(){
-
-        // Rent a Car button click event
-        document.getElementById("rentCarButton").addEventListener("click", function() {
+    // Rent a Car button click event
+    document.getElementById("rentCarButton")
+        .addEventListener("click", function() {
             window.location.href = '../view/search.html';
         });
 
-        // View Reservations button click event
-        document.getElementById("viewReservationsButton").addEventListener("click", function() {
+    // View Reservations button click event
+    document.getElementById("viewReservationsButton")
+        .addEventListener("click", function() {
             window.location.href = '../logic/view_reservation.php';
         });
 
-        // Logout link click event
-        document.getElementById("logoutLink").addEventListener("click", function(event) {
-            event.preventDefault(); // Prevent the default link behavior (navigation)
-            // Redirect to logout URL
+    // Logout link click event
+    document.getElementById("logoutLink")
+        .addEventListener("click", function(event) {
+            event.preventDefault();
             logout();
         });
-
-        // Put the username
-        document.getElementById("username").innerText = username;
-    })
+});
