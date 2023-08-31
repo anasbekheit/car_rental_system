@@ -1,6 +1,3 @@
-export function updateUsername(username) {
-    document.getElementById("username").innerText = username;
-}
 export function logout() {
     sessionStorage.removeItem('loggedIn');
     window.location.href = '../logic/index.php?logout=1';
@@ -88,3 +85,44 @@ export function isValidDate(dateString) {
     // Check the range of the day
     return day > 0 && day <= monthLength[month - 1];
 }
+async function fetchUsername() {
+    try {
+        const response = await fetch('../logic/index.php');
+
+        if (!response.ok) {
+            throw new Error("Something went wrong!");
+        }
+
+        return response.json(); // No need to check for redirection here
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
+async function populateUsername() {
+    try {
+        const username = await fetchUsername();
+        document.getElementById("username").innerText = username;
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+export async function init() {
+    try {
+        if (!sessionStorage.getItem('loggedIn')) {
+            window.location.href = '../view/login.html';
+            return;
+        }
+
+        await populateUsername();
+        // Any other initialization logic you want to include
+
+    } catch (error) {
+        console.error('Error during initialization:', error);
+    }
+}
+
+
+

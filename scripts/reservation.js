@@ -1,3 +1,5 @@
+import {init} from "./util.js";
+
 function createCarInfo() {
     const parentElement = document.getElementById('car_details');
     const car = JSON.parse(sessionStorage.getItem('car'));
@@ -43,6 +45,7 @@ function calculateTotalAmount(car) {
     return '$' + (pricePerDay * totalDays).toFixed(2);
 }
 
+init();
 document.addEventListener('DOMContentLoaded',function () {
 
     createCarInfo();

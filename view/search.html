@@ -11,14 +11,19 @@
 <!-- Header section -->
 <div class="header">
     <div class="topbar">
-        <a href="../view/index.html"><img class="logo" src="../css/logo/colored/logo-white.svg" alt="Rently's Logo"></a>
+        <a href="index.html"><img class="logo" src="../css/logo/colored/logo-white.svg" alt="Rently Logo"></a>
+        <!-- logged in user information -->
         <div class="welcome">
-            <h3><strong><!-- Display user's first name here --></strong></h3>
-            <button class="logout_button" onclick="logout()">Log out</button>
+            <h3><strong id="username"></strong></h3>
+            <h3><a class="logoutText" href="#" id="logoutLink">Log out</a></h3>
         </div>
-        <!-- Back button -->
+        <!-- notification message -->
+        <div class="error_success">
+            <h3 id="successMessage"></h3>
+        </div>
     </div>
 </div>
+
 <form autocomplete="off" class="search_form" name="searchForm" method="post" action="../logic/search.php">
     <label for="car_manufacturer">Car Manufacturer:</label>
     <input autocomplete="off" type="text" id="car_manufacturer" name="car_manufacturer">

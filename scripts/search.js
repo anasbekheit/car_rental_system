@@ -1,4 +1,4 @@
-import {isValidDate} from "./util.js";
+import {init, isValidDate} from "./util.js";
 
 function correctDates(fromDate, toDate) {
     if ( !isValidDate(fromDate) || !isValidDate(toDate)){
@@ -136,6 +136,8 @@ function separate(searchData) {
 
     return [manufacturers, models];
 }
+
+init();
 document.addEventListener('DOMContentLoaded', async function() {
     const searchDataResult = await retrieveAvailableCars();
     [manufacturers, models] = separate(searchDataResult);
