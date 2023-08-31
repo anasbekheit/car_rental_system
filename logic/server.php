@@ -64,6 +64,7 @@ function validateCredentials($email, $password)
         $statement->bind_result($customer_id, $email, $fname, $lname, $country, $credit_card);
         $statement->fetch();
         $user = [
+            'customer_id' => $customer_id,
             'email' => $email,
             'fname' => $fname,
             'lname' => $lname,
