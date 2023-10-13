@@ -112,7 +112,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errors)) {
         $user = registerUser($fname, $lname, $email, $password_1, $country, $credit_card);
         $_SESSION['user'] = $user;
-        $_SESSION['success'] = "You are now registered and logged in";
         echo json_encode($errors);
         header('location: index.php');
         exit;

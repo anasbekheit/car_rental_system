@@ -27,8 +27,14 @@
 
 <div id="car_details">
   <div class="buttons">
-    <button type="button" id="back_to_search">Back</button>
-    <button type="button" id="proceed_to_checkout">Proceed to Checkout</button>
+    <form action="../logic/view_reservation.php?value=back" method="get">
+      <button type="button" id="back_to_search">Back</button>
+    </form>
+
+    <form action="../logic/view_reservation.php?value=proceed_to_checkout" method="get">
+      <button type="button" id="proceed_to_checkout">Proceed to Checkout</button>
+    </form>
+
   </div>
 </div>
 </body>

@@ -13,15 +13,18 @@ if (!isset($_SESSION['car'])) {
 if (isset($_SESSION['reservation']))
 {unset($_SESSION['reservation']);}
 
-if (isset($_POST['user_proceed_to_checkout'])) {
-
-    $_SESSION['reservation'] = "Reservation in progress";
-    header('location: checkout.php');
-}
-if (isset($_POST['back_to_search'])) {
-
-    unset($_SESSION['car']);
-    if (isset($_SESSION['reservation']))
-    {unset($_SESSION['reservation']);}
-    header('location: ../view/search.html');
+if (isset($_GET['value'])) {
+    if($_GET['value'] == 'proceed_to_checkout'){
+        $_SESSION['reservation'] = "Reservation in progress";
+        header('location: checkout.php');
+    }
+    elseif ($_GET['value'] == 'back'){
+        unset($_SESSION['car']);
+        if (isset($_SESSION['reservation']))
+        {unset($_SESSION['reservation']);}
+        header('location: ../view/search.html');
+    }
+    else{
+        throw new Error("Undefined value ${$_GET['value']}");
+    }
 }
